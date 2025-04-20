@@ -1,0 +1,113 @@
+services: 
+  product-producer:
+    image: arthurescriou/product-producer:1.0.0
+    container_name: product-producer
+    env_file: .env
+    depends_on:
+      - product-consumer
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: product
+      ERROR_TOPIC: errors
+      FILE_NAME: /app/data/products.csv
+    volumes:
+      - /home/fedora/Bureau/S6/Projet/OPSCI2024/data/products.csv:/app/data/products.csv
+    networks:
+      - strapi
+
+  product-consumer:
+    image: arthurescriou/product-consumer:1.0.3
+    container_name: product-consumer
+    env_file: .env
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: product
+      BEGINNING: false
+      ERROR_TOPIC: errors
+    networks:
+      - strapi
+
+  event-producer:
+    image: arthurescriou/event-producer:1.0.3
+    container_name: event-producer
+    env_file: .env
+    depends_on:
+      - event-consumer
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: event
+      BEGINNING: false
+      ERROR_TOPIC: errors
+      FILE_NAME: /app/data/events.csv
+    volumes:
+      - /home/fedora/Bureau/S6/Projet/OPSCI2024/data/events.csv:/app/data/events.csv
+    networks:
+      - strapi
+
+  event-consumer:
+    image: arthurescriou/event-consumer:1.0.0
+    container_name: event-consumer
+    env_file: .env
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: event
+      BEGINNING: false
+      ERROR_TOPIC: errors
+    networks:
+      - strapi
+
+  stock-producer:
+    image: arthurescriou/stock-producer:1.0.1
+    container_name: stock-producer
+    env_file: .env
+    depends_on:
+      - stock-consumer
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: stock
+      FILE_NAME: /app/data/stocks.csv
+    volumes:
+      - /home/fedora/Bureau/S6/Projet/OPSCI2024/data/stocks.csv:/app/data/stocks.csv
+    networks:
+      - strapi
+
+  stock-consumer:
+    image: arthurescriou/stock-consumer:1.0.2
+    container_name: stock-consumer
+    env_file: .env
+    environment:
+      BROKER_1: ${BROKER_URL}
+      BROKER_2: ${BROKER_URL}
+      BROKER_3: ${BROKER_URL}
+      STRAPI_TOKEN: ${STRAPI_TOKEN}
+      STRAPI_URL: http://strapi:1337
+      TOPIC: stock
+      BEGINNING: false
+      ERROR_TOPIC: errors
+    networks:
+      - strapi
+
+networks:
+  strapi:
+    external: true
+    name: Strapi
