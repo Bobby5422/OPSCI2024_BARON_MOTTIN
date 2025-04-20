@@ -43,7 +43,7 @@ OPSCI2024-main/
 │   ├── src/api/product/     # contenu du Content Type "product" (schema, controllers, services)
 │   ├── database/migrations/ # migrations SQL
 │   └── dockerfile           # build de l’image Strapi
-├── data/                    # jeux de données d’exemple (CSV) pour producers
+├── data/                    # mise à jour des données (en plus de celle déjà existante dans la DB)
 │   ├── products.csv
 │   ├── events.csv
 │   └── stocks.csv
@@ -55,7 +55,7 @@ OPSCI2024-main/
 │   └── vite.config.ts
 └── topics/                  # configuration & Docker Compose pour producers/consumers
     ├── .env                 # BROKER_URL & STRAPI_TOKEN
-    └── docker-compose.yml
+    └── docker-compose.yml   # conteneurs topics
 ```
 
 ##  Prérequis
