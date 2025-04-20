@@ -154,7 +154,7 @@ docker-compose up -d
 
 ## Auteurs
 
-- Binôme : Ludovic BARON , Elliot MOTTIN 21206296
+- Binôme : Ludovic BARON 21127210, Elliot MOTTIN 21206296
 - Références externes :  
   - Frontend : [arthurescriou/opsci-strapi-frontend](https://github.com/arthurescriou/opsci-strapi-frontend)  
   - Producers/Consumers : organisation [opsci-su](https://github.com/opsci-su)  
