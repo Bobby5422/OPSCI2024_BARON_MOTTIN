@@ -38,7 +38,7 @@ OPSCI2024-main/
 ├── .gitignore
 ├── docker-compose.yml       # orchestration Strapi, Postgres, Kafka, Zookeeper
 ├── backend/                 # projet Strapi (CMS)
-│   ├── .env.example         # exemple de config env Strapi
+│   ├── .env                 # env Strapi
 │   ├── config/              # configuration Strapi (admin, api, db, plugins)
 │   ├── src/api/product/     # contenu du Content Type "product" (schema, controllers, services)
 │   ├── database/migrations/ # migrations SQL
